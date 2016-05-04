@@ -9,10 +9,10 @@ This image is intended for cluster deployment of Riak S2 using docker.
 
 ## usage ##
 
-First time:
+First time (on any node of the cluster):
 
 - allow anon creation (anonymous_user_creation on riak-cs.conf)
-- start riak, stanchion and riak-cs
+- restart riak-cs
 - create user and copy generated creds
 
 ```

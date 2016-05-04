@@ -16,6 +16,8 @@ RUN curl -s https://packagecloud.io/install/repositories/basho/stanchion/script.
 RUN apt-get install riak stanchion riak-cs
 
 ENV STANCHION_ENABLED true
+ENV SEED_HOST 127.0.0.1
+ENV RIAK_S2_CLUSTER_SIZE 1
 
 ADD etc/riak/advanced.config /etc/riak/
 ADD etc/riak/riak.conf /etc/riak/
