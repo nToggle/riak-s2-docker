@@ -14,3 +14,19 @@ RUN curl -s https://packagecloud.io/install/repositories/basho/riak-cs/script.de
 RUN curl -s https://packagecloud.io/install/repositories/basho/stanchion/script.deb.sh | sudo bash
 
 RUN apt-get install riak stanchion riak-cs
+
+ENV STANCHION_ENABLED true
+
+ADD etc/riak/advanced.config /etc/riak/
+ADD etc/riak/riak.conf /etc/riak/
+ADD etc/riak-cs/riak-cs.conf /etc/riak-cs/
+ADD etc/stanchion/stanchion.conf /etc/stanchion/
+
+COPY bin/start-services.sh /etc/my_init.d/01-start-services.sh
+
+EXPOSE 8080 8085
+
+#RUN echo "WAIT_FOR_ERLANG=60" > /etc/default/riak
+
+# Leverage the baseimage-docker init system
+CMD ["/sbin/my_init", "--quiet"]
