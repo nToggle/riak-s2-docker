@@ -1,0 +1,36 @@
+# Riak S2
+# VERSION 0.0.2
+# @ntoggle 2016
+
+FROM phusion/baseimage:0.9.18
+MAINTAINER Johnny Everson j.everson@ntoggle.com
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update -qq && apt-get upgrade -y
+
+RUN locale-gen en_US en_US.UTF-8
+
+RUN curl -s https://packagecloud.io/install/repositories/basho/riak/script.deb.sh | sudo bash
+RUN curl -s https://packagecloud.io/install/repositories/basho/riak-cs/script.deb.sh | sudo bash
+
+RUN apt-get install -y riak riak-cs supervisor
+
+ENV JOIN_CLUSTER false
+ENV RIAK_CLUSTER_SIZE 1
+
+ADD riak/advanced.config /etc/riak/
+ADD riak/riak.conf /etc/riak/
+
+COPY riak/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+EXPOSE 8087 8098
+
+# Leverage the baseimage-docker init system
+COPY riak/fix-perms.sh /etc/my_init.d/01-fix-perms.sh
+COPY bin/kill_supervisor.py /usr/bin/kill_supervisor.py
+
+CMD ["/sbin/my_init", "--", "/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+
+# Clean up APT when done.
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

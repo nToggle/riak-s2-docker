@@ -18,7 +18,7 @@ Env Vars:
 
 - STANCHION_ENABLED: whether to start a stanchion node in the container being started. When disabled, riak will try to join cluster at SEED_HOST. (default: true, assume single node riak)
 - SEED_HOST which host to connect in order join the cluster
-- RIAK_S2_CLUSTER_SIZE riak clustering needs to know how many nodes are in the cluster before completing the clustering plan. This is used so that last container joining cluster can commit clustering plan.
+- RIAK_CLUSTER_SIZE riak clustering needs to know how many nodes are in the cluster before completing the clustering plan. This is used so that last container joining cluster can commit clustering plan.
 
 A sample run command for the seed node is:
 
