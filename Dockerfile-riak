@@ -30,6 +30,11 @@ EXPOSE 8087 8098
 COPY riak/fix-perms.sh /etc/my_init.d/01-fix-perms.sh
 COPY bin/kill_supervisor.py /usr/bin/kill_supervisor.py
 
+RUN ln -s /dev/stderr /var/log/riak/crash.log
+RUN ln -s /dev/stderr /var/log/riak/error.log
+RUN ln -s /dev/stdout /var/log/riak/console.log
+RUN ln -s /dev/stdout /var/log/riak/supervisor.log
+
 CMD ["/sbin/my_init", "--", "/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
 
 # Clean up APT when done.

@@ -1,10 +1,10 @@
 build:
 	docker build --tag "quay.io/ntoggle/riak:0.0.3" -f Dockerfile-riak .
-	docker tag quay.io/ntoggle/riak:0.0.3 quay.io/ntoggle/riak:latest
+	docker tag -f quay.io/ntoggle/riak:0.0.3 quay.io/ntoggle/riak:latest
 	docker build --tag "quay.io/ntoggle/riak-s2:0.0.3" -f Dockerfile-riak-s2 .
-	docker tag quay.io/ntoggle/riak-s2:0.0.3 quay.io/ntoggle/riak-s2:latest
+	docker tag -f quay.io/ntoggle/riak-s2:0.0.3 quay.io/ntoggle/riak-s2:latest
 	docker build --tag "quay.io/ntoggle/stanchion:0.0.3" -f Dockerfile-stanchion .
-	docker tag quay.io/ntoggle/stanchion:0.0.3 quay.io/ntoggle/stanchion:latest
+	docker tag -f quay.io/ntoggle/stanchion:0.0.3 quay.io/ntoggle/stanchion:latest
 	docker push quay.io/ntoggle/riak-s2:latest
 	docker push quay.io/ntoggle/stanchion:latest
 	docker push quay.io/ntoggle/riak:latest
