@@ -26,6 +26,10 @@ COPY riak/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 EXPOSE 8087 8098
 
+RUN echo "manual" > /etc/init/riak.override
+RUN echo "manual" > /etc/init/riak-cs.override
+RUN echo "manual" > /etc/init/supervisor.override
+
 # Leverage the baseimage-docker init system
 COPY riak/fix-perms.sh /etc/my_init.d/01-fix-perms.sh
 COPY bin/kill_supervisor.py /usr/bin/kill_supervisor.py
